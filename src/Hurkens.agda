@@ -28,15 +28,15 @@ U = (X : □) → ((℘℘ X → X) → ℘℘ X)
 Ω : U
 Ω = τ λ (p : ℘ U) → ∀ (x : U) → σ x p → p x
 
-too-bad₁ : ((p : ℘ U) → (((x : U) → σ x p → p x) → p Ω)) → ⊥
-too-bad₁ = λ (₀ : ∀ (p : ℘ U) → ((∀ (x : U) → σ x p → p x) → p Ω)) →
-  ((₀ Δ λ (x : U) (₂ : σ x Δ) (₃ : ∀ (p : ℘ U) → (σ x p → p (τσ x))) →
-  ((₃ Δ ₂) λ (p : ℘ U) → (₃ λ (y : U) → p (τσ y)))) λ (p : ℘ U) →
-  (₀ λ (y : U) → p (τσ y)))
+too-bad₁ : ((p : ℘ U) → ((x : U) → σ x p → p x) → p Ω) → ⊥
+too-bad₁ = λ (₀ : ∀ (p : ℘ U) → (∀ (x : U) → σ x p → p x) → p Ω) →
+  (₀ Δ λ (x : U) (₂ : σ x Δ) (₃ : ∀ (p : ℘ U) → σ x p → p (τσ x)) →
+  (₃ Δ ₂ λ (p : ℘ U) → (₃ λ (y : U) → p (τσ y)))) λ (p : ℘ U) →
+  ₀ λ (y : U) → p (τσ y)
 
 too-bad₂ : ⊥
 too-bad₂ = too-bad₁ λ (p : ℘ U) (₁ : ∀ (x : U) → σ x p → p x) →
-  ₁ Ω (λ (x : U) → ₁ (τσ x))
+  ₁ Ω λ (x : U) → ₁ (τσ x)
 
 -- The following ends up with stack overflow during type-checking.
 {-
